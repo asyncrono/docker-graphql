@@ -26,11 +26,11 @@ jobs:
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
         echo "Final de login"
     - name: Docker Build Iamge
-      run:
+      run: |
         docker build -t celsoarmas/docker-graphql:0.0.2 .
         docker build -t celsoarmas/docker-graphql:latest .
     - name: Docker Push Image
-      run:
+      run: |
         docker push  celsoarmas/docker-graphql:0.0.2
         docker push  celsoarmas/docker-graphql:latest
     # - name: Build the Docker image
