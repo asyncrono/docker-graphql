@@ -30,19 +30,23 @@ jobs:
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+    
+    - name: Docker Build Iamge
+      env:
         NEW_VERSION: ${{ steps.version.outputs.version }}
       run: |
-        echo "Inicio de login"
-        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-        echo "Final de login"
-        echo "Nueva version: $NEW_VERSION !!!!!!!!!!!!!!!!!!!!!!!!!!!"
-    # - name: Docker Build Iamge
-    #   run: |
-    #     docker build -t celsoarmas/docker-graphql:0.0.2 .
-    #     docker build -t celsoarmas/docker-graphql:latest .
-    # - name: Docker Push Image
-    #   run: |
-    #     docker push  celsoarmas/docker-graphql:0.0.2
-    #     docker push  celsoarmas/docker-graphql:latest
+        docker build -t celsoarmas/docker-graphql:$NEW_VERSION .
+        docker build -t celsoarmas/docker-graphql:latest .
+        
+    - name: Docker Push Image
+      env:
+        NEW_VERSION: ${{ steps.version.outputs.version }}
+      run: |
+        docker push  celsoarmas/docker-graphql:$NEW_VERSION
+        docker push  celsoarmas/docker-graphql:latest
+
+        
     # - name: Build the Docker image
     #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
