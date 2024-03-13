@@ -30,6 +30,6 @@ jobs:
         docker build -t celsoarmas/docker-graphql:0.0.2 .
     - name: Docker Push Image
       run:
-        docker push  celsoarmas/docker-graphql:0.0.2 .
+        docker push  celsoarmas/docker-graphql:0.0.2
     # - name: Build the Docker image
     #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
